@@ -14,7 +14,7 @@ public class Calculator {
 
 
     public String calculate(String expression) {
-        if(expressionValidation.fullValidation(new StringBuilder(expression))) {
+        if(expressionValidation.fullValidation(expression)) {
             StringBuilder resultExpression = new StringBuilder(fractionParser.clearSpaces(expression));
             return countExpressionWithBrackets(resultExpression).toString();
         }
@@ -23,7 +23,7 @@ public class Calculator {
         }
     }
 
-    public StringBuilder countExpressionWithBrackets(StringBuilder expression) {
+    private StringBuilder countExpressionWithBrackets(StringBuilder expression) {
         Matcher matcherBrackets = fractionParser.parseBrackets(expression);
         if(matcherBrackets.find()) {
             StringBuilder resultExpression = new StringBuilder(matcherBrackets.group(1));
@@ -35,9 +35,10 @@ public class Calculator {
         }
     }
 
-    public StringBuilder countFullExpression(StringBuilder expression) {
+    private StringBuilder countFullExpression(StringBuilder expression) {
         expression = fractionParser.clearPlusMinus(expression);
         expression = fractionParser.clearSingleBrackets(expression);
+        expression = fractionParser.bracketsTransformation(expression);
         Matcher matcherMultiplicationAndDivision = fractionParser.parseMultiplicationAndDivision(expression);
         Matcher matcherSumAndSubtraction = fractionParser.parseSumAndSubtraction(expression);
 

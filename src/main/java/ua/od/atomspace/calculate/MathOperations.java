@@ -21,21 +21,21 @@ public class MathOperations {
         }
     }
 
-    public Fraction division(Fraction firstFraction,Fraction secondFraction){
+    private Fraction division(Fraction firstFraction,Fraction secondFraction){
         Fraction resultFraction = new Fraction();
         resultFraction.setDenominator(firstFraction.getDenominator()*secondFraction.getNumerator());
         resultFraction.setNumerator(firstFraction.getNumerator()*(secondFraction.getDenominator()));
         return reduction(resultFraction);
     }
 
-    public Fraction multiplication(Fraction firstFraction,Fraction secondFraction){
+    private Fraction multiplication(Fraction firstFraction,Fraction secondFraction){
         Fraction resultFraction = new Fraction();
         resultFraction.setDenominator(firstFraction.getDenominator()*secondFraction.getDenominator());
         resultFraction.setNumerator(firstFraction.getNumerator()*secondFraction.getNumerator());
         return reduction(resultFraction);
     }
 
-    public Fraction sum(Fraction firstFraction, Fraction secondFraction) {
+    private Fraction sum(Fraction firstFraction, Fraction secondFraction) {
         Fraction resultFraction = new Fraction();
         if(firstFraction.getDenominator() == secondFraction.getDenominator()) {
             resultFraction.setDenominator(firstFraction.getDenominator());
@@ -50,7 +50,7 @@ public class MathOperations {
         return reduction(resultFraction);
     }
 
-    public Fraction subtraction(Fraction firstFraction,Fraction secondFraction) {
+    private Fraction subtraction(Fraction firstFraction,Fraction secondFraction) {
         Fraction resultFraction = new Fraction();
         if(firstFraction.getDenominator() == secondFraction.getDenominator()) {
             resultFraction.setDenominator(firstFraction.getDenominator());
@@ -65,14 +65,14 @@ public class MathOperations {
         return reduction(resultFraction);
     }
 
-    public Fraction reduction(Fraction fraction) {
+    private Fraction reduction(Fraction fraction) {
         int gcd = Math.abs(greatestCommonDividend(fraction.getNumerator(),fraction.getDenominator()));
         fraction.setNumerator(fraction.getNumerator()/gcd);
         fraction.setDenominator(fraction.getDenominator()/gcd);
         return fraction;
     }
 
-    public int greatestCommonDividend(int numerator,int denominator) {
+    private int greatestCommonDividend(int numerator,int denominator) {
         return denominator == 0 ? numerator : greatestCommonDividend(denominator,numerator % denominator);
     }
 }

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class ExpressionValidation {
 
-    public boolean fullValidation(StringBuilder expression) {
+    public boolean fullValidation(String expression) {
         boolean valid;
         valid = charValidation(expression);
         if(!valid) {
@@ -15,18 +15,34 @@ public class ExpressionValidation {
         if(!valid) {
             return false;
         }
-        valid = fractionValidation(expression);
-        if(!valid){
+        valid = operationValidation(expression);
+        if(!valid) {
             return false;
         }
-        return true;
+        valid = fractionValidation(expression);
+        return valid;
     }
 
-    public boolean charValidation(StringBuilder expression) {
-        return expression.toString().matches("[^@-\\[\\]-~!-',\\.;-?]+");
+    private boolean charValidation(String expression) {
+        return expression.matches("[^@-\\[\\]-~!-',\\.;-?]+");
     }
 
-    public boolean bracketsValidation(StringBuilder expression) {
+    private boolean operationValidation(String expression) {
+        Pattern patternOperation = Pattern.compile("\\d+\\)?\\++$");
+        Matcher matcherOperation = patternOperation.matcher(expression);
+        return !matcherOperation.find();
+    }
+
+    private boolean bracketsValidation(String expression) {
+        int firstBracketIndex = expression.indexOf("(");
+        int secondBracketIndex = expression.indexOf(")");
+        for(int i = 0;i<expression.length();i++) {
+            if (firstBracketIndex > secondBracketIndex){
+                return false;
+            }
+            firstBracketIndex = expression.indexOf("(",firstBracketIndex+1);
+            secondBracketIndex = expression.indexOf(")",secondBracketIndex+1);
+        }
         Pattern patternFirstBrackets = Pattern.compile("\\(");
         Matcher matcherFirstBrackets = patternFirstBrackets.matcher(expression);
         int firstBracketsCount = 0;
@@ -42,31 +58,24 @@ public class ExpressionValidation {
         return firstBracketsCount == secondBracketsCount;
     }
 
-    public boolean fractionValidation(StringBuilder expression) {
-        addSpaces(expression);
+    private boolean fractionValidation(String expression) {
+        expression = " " + expression + " ";
         Pattern patternMultistoryFraction = Pattern.compile("(\\d+\\/\\d+(\\/\\d+)+)");
         Matcher matcherMultistoryFraction = patternMultistoryFraction.matcher(expression);
         if(matcherMultistoryFraction.find()){
             return false;
         }
+
         Pattern patternEmptyNumerator = Pattern.compile("( \\/\\d+)");
         Matcher matcherEmptyNumerator = patternEmptyNumerator.matcher(expression);
         if(matcherEmptyNumerator.find()){
             return false;
         }
+
         Pattern patternEmptyDenominator = Pattern.compile("(\\d+\\/ )");
         Matcher matcherEmptyDenominator = patternEmptyDenominator.matcher(expression);
-        if(matcherEmptyDenominator.find()){
-            return false;
-        }
-
-        return true;
+        return !matcherEmptyDenominator.find();
     }
 
-    private void addSpaces(StringBuilder expression) {
-        expression.append(" ");
-        expression.reverse();
-        expression.append(" ");
-        expression.reverse();
-    }
+
 }
