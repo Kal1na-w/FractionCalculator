@@ -1,0 +1,6 @@
+ua/od/atomspace/Fraction.class
+ua/od/atomspace/validation/ExpressionValidation.class
+ua/od/atomspace/parser/FractionParser.class
+ua/od/atomspace/CalculatorApplication.class
+ua/od/atomspace/calculate/Calculator.class
+ua/od/atomspace/calculate/MathOperations.class

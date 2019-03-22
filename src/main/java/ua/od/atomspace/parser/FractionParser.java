@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FractionParser {
-
     public StringBuilder clearPlusMinus(StringBuilder expression) {
         Pattern patternFindPlusMinus = Pattern.compile("(\\+\\-)|(\\-\\-)");
         Matcher matcherPlusMinus = patternFindPlusMinus.matcher(expression);

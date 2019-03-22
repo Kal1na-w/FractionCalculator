@@ -15,7 +15,7 @@ public class Calculator {
 
     public String calculate(String expression) {
         if(expressionValidation.fullValidation(expression)) {
-            StringBuilder resultExpression = new StringBuilder(fractionParser.clearSpaces(expression));
+            StringBuilder resultExpression = new StringBuilder(fractionParser.clearSpaces(expression.replaceAll("\\/+",":")));
             return countExpressionWithBrackets(resultExpression).toString();
         }
         else {
