@@ -1,3 +1,8 @@
+/home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/service/calculate/MathOperations.java
+/home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/service/validation/ExpressionValidation.java
 /home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/CalculatorApplication.java
+/home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/service/Fraction.java
+/home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/service/parser/FractionParser.java
 /home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/controller/CalculatorController.java
 /home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/controller/StatusController.java
+/home/atomspace/Projects/FractionCalculator/src/main/java/ua/od/atomspace/Calculator/service/calculate/Calculator.java
