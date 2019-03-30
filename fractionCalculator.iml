@@ -81,6 +81,14 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.1.5.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.1.5.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.6.2" level="project" />
-    <orderEntry type="library" name="Maven: ua.od.atomspace:FractionOperations:1.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: ua.od.atomspace:FractionOperations:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/jars/FractionOperations-1.0-SNAPSHOT.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

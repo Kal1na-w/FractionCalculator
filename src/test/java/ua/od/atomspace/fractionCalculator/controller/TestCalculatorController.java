@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class CalculatorControllerTests extends AbstractTest {
+public class TestCalculatorController extends AbstractTest {
 
     @Override
     @Before
@@ -20,7 +20,7 @@ public class CalculatorControllerTests extends AbstractTest {
         super.setUp();
     }
     @Test
-    public void postEquation() throws Exception {
+    public void testPostEquation() throws Exception {
         String uri = "/calc";
         Map<String,String> jsonSend = new HashMap<>();
         jsonSend.put("equation","2+5/5");

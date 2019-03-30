@@ -12,7 +12,7 @@ import java.util.HashMap;
 import static org.junit.Assert.assertEquals;
 
 
-public class StatusControllerTests extends AbstractTest {
+public class TestStatusController extends AbstractTest {
 
 	@Override
 	@Before
@@ -21,7 +21,7 @@ public class StatusControllerTests extends AbstractTest {
 	}
 
 	@Test
-	public void getStatus() throws Exception {
+	public void testGetStatus() throws Exception {
 		String uri = "/healthcheck";
 		HashMap<String,String> status = new HashMap<>();
 		status.put("status","ok");
