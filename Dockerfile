@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-COPY target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM maven:3.3-jdk-8-alpine
+COPY . /app
+RUN cd app && mvn package
+ENTRYPOINT ["java","-jar","app/target/fractionCalculator-0.0.1-SNAPSHOT.jar"]

@@ -1,8 +1,0 @@
-ua/od/atomspace/Calculator/CalculatorApplication.class
-ua/od/atomspace/Calculator/service/FractionOperations/calculate/MathOperations.class
-ua/od/atomspace/Calculator/service/FractionOperations/calculate/Calculator.class
-ua/od/atomspace/Calculator/controller/StatusController.class
-ua/od/atomspace/Calculator/controller/CalculatorController.class
-ua/od/atomspace/Calculator/service/FractionOperations/calculate/Fraction.class
-ua/od/atomspace/Calculator/service/FractionOperations/calculate/validation/ExpressionValidation.class
-ua/od/atomspace/Calculator/service/FractionOperations/calculate/parser/FractionParser.class
