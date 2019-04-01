@@ -1,3 +1,4 @@
-ua/od/atomspace/fractionCalculator/TestAbstract.class
 ua/od/atomspace/fractionCalculator/controller/TestStatusController.class
+ua/od/atomspace/fractionCalculator/FractionOperations/TestCalculator.class
+ua/od/atomspace/fractionCalculator/TestAbstract.class
 ua/od/atomspace/fractionCalculator/controller/TestCalculatorController.class

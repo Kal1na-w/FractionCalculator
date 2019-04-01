@@ -1,3 +1,4 @@
-/home/atomspace/Projects/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/TestAbstract.java
-/home/atomspace/Projects/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/controller/TestCalculatorController.java
-/home/atomspace/Projects/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/controller/TestStatusController.java
+/home/atomspace/Documents/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/controller/TestStatusController.java
+/home/atomspace/Documents/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/TestAbstract.java
+/home/atomspace/Documents/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/controller/TestCalculatorController.java
+/home/atomspace/Documents/FractionCalculator/src/test/java/ua/od/atomspace/fractionCalculator/FractionOperations/TestCalculator.java
