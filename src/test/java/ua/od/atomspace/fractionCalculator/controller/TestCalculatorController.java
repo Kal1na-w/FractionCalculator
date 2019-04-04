@@ -20,7 +20,7 @@ public class TestCalculatorController extends TestAbstract {
         super.setUp();
     }
     @Test
-    public void testPostEquation() throws Exception {
+    public void testJson() throws Exception {
         String uri = "/calc";
         Map<String,String> jsonSend = new HashMap<>();
         jsonSend.put("equation","2+5/5");
@@ -28,5 +28,13 @@ public class TestCalculatorController extends TestAbstract {
         jsonSend.put("result","3/1");
         assertEquals(200, mvcResult.getResponse().getStatus());
         assertEquals(jsonSend,mapFromJson(mvcResult.getResponse().getContentAsString(),HashMap.class));
+    }
+    @Test
+    public void testTextPlain() throws Exception {
+        String uri = "/calc";
+        String request = "equation\t2+5/5";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri).contentType(MediaType.TEXT_PLAIN_VALUE).content(request)).andReturn();
+        assertEquals(200, mvcResult.getResponse().getStatus());
+        assertEquals(request+"\nresult\t3/1",mvcResult.getResponse().getContentAsString());
     }
 }
