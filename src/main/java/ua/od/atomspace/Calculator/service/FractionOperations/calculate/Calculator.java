@@ -1,70 +1,106 @@
 package ua.od.atomspace.Calculator.service.FractionOperations.calculate;
 
-
 import org.springframework.stereotype.Service;
-import ua.od.atomspace.Calculator.service.FractionOperations.calculate.parser.FractionParser;
-import ua.od.atomspace.Calculator.service.FractionOperations.calculate.validation.ExpressionValidation;
 
-import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
 @Service
 public class Calculator {
+    private Stack<String> stackOperations = new Stack<>();
+    private Stack<String> stackAnswer = new Stack<>();
+    private MathOperations mathOperations = new MathOperations();
+    private ExpressionValidation expressionValidation = new ExpressionValidation();
 
-    private final FractionParser fractionParser = new FractionParser();
-    private final MathOperations mathOperations = new MathOperations();
-    private final ExpressionValidation expressionValidation = new ExpressionValidation();
+
+    private String operators = "+-*:";
+
+    private boolean isNumber(String token) {
+        try {
+            Integer.parseInt(token);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    private boolean isOpenBracket(String token) {
+        return token.equals("(");
+    }
+    private boolean isCloseBracket(String token) {
+        return token.equals(")");
+    }
+    private boolean isOperator(String token) {
+        return operators.contains(token);
+    }
 
 
     public String calculate(String expression) {
-        if(expressionValidation.fullValidation(expression)) {
-            StringBuilder resultExpression = new StringBuilder(fractionParser.clearSpaces(expression.replaceAll("\\/+",":")));
-            return countExpressionWithBrackets(resultExpression).toString();
+        if (expressionValidation.fullValidation(expression)) {
+            return count(parse(expression));
         }
         else {
             return "No valid expression";
         }
     }
 
-    private StringBuilder countExpressionWithBrackets(StringBuilder expression) {
-        Matcher matcherBrackets = fractionParser.parseBrackets(expression);
-        if(matcherBrackets.find()) {
-            StringBuilder resultExpression = new StringBuilder(matcherBrackets.group(1));
-            expression.replace(matcherBrackets.start(),matcherBrackets.end(),countFullExpression(resultExpression).toString());
-            return countExpressionWithBrackets(expression);
+
+    private ArrayList<String> parse(String expression) {
+        stackAnswer.clear();
+        expression = expression.replace(" ", "").replace("(-", "(0-").replace("(+","(0+").replace("/",":");
+        if (expression.charAt(0) == '-' || expression.charAt(0) == '+') {
+            expression = "0" + expression;
         }
-        else {
-            return countFullExpression(expression);
+        StringTokenizer stringTokenizer = new StringTokenizer(expression, operators + "()", true);
+        while (stringTokenizer.hasMoreTokens()) {
+            String token = stringTokenizer.nextToken();
+            if (isNumber(token)) {
+                stackAnswer.push(token);
+            }
+            else if (isOpenBracket(token)) {
+                stackOperations.push(token);
+            }
+            else if (isCloseBracket(token)) {
+                while (!stackOperations.lastElement().equals("(")) {
+                    stackAnswer.push(stackOperations.pop());
+                }
+                stackOperations.pop();
+            }
+            else if(isOperator(token)) {
+                if (stackOperations.empty()) {
+                    stackOperations.push(token);
+                }
+                else if((stackOperations.lastElement().equals("*") || stackOperations.lastElement().equals(":")) && (token.equals("+") || token.equals("-"))) {
+                    stackAnswer.push(stackOperations.pop());
+                    stackOperations.push(token);
+                }
+                else if ((stackOperations.lastElement().equals("-") && token.equals("+")) || (stackOperations.lastElement().equals(":") && token.equals("*"))) {
+                    stackAnswer.push(stackOperations.pop());
+                    stackOperations.push(token);
+                }
+                else {
+                    stackOperations.push(token);
+                }
+            }
         }
+        int counter = stackOperations.size();
+        for (int i = 0; i < counter; i++) {
+            stackAnswer.push(stackOperations.pop());
+        }
+        return new ArrayList<String>(Arrays.asList(stackAnswer.toArray(new String[stackOperations.size()])));
     }
-
-    private StringBuilder countFullExpression(StringBuilder expression) {
-        expression = fractionParser.clearPlusMinus(expression);
-        expression = fractionParser.clearSingleBrackets(expression);
-        expression = fractionParser.bracketsTransformation(expression);
-        Matcher matcherMultiplicationAndDivision = fractionParser.parseMultiplicationAndDivision(expression);
-        Matcher matcherSumAndSubtraction = fractionParser.parseSumAndSubtraction(expression);
-
-        Fraction[] fractions = new Fraction[2];
-        if(matcherMultiplicationAndDivision.find()) {
-            return countOneExpression(expression, matcherMultiplicationAndDivision, fractions);
+    private String count(ArrayList<String> expression) {
+        for (String token : expression) {
+            if(isOperator(token)) {
+                int index = expression.indexOf(token);
+                Fraction answer = mathOperations.countUp(new Fraction(expression.get(index-2)),new Fraction(expression.get(index-1)),token);
+                expression.set(index,answer.toString());
+                expression.remove(index-1);
+                expression.remove(index-2);
+                return count(expression);
+            }
         }
-        else if (matcherSumAndSubtraction.find()){
-            return countOneExpression(expression, matcherSumAndSubtraction, fractions);
-        }
-        else {
-            return expression;
-        }
+        return expression.get(0);
     }
-
-    private StringBuilder countOneExpression(StringBuilder expression, Matcher matcher, Fraction[] fractions) {
-        char operation;
-        operation = matcher.group(2).charAt(0);
-        fractions[0] = fractionParser.parseFraction(matcher.group(1));
-        fractions[1] = fractionParser.parseFraction(matcher.group(3));
-        Fraction resultFraction = mathOperations.countUp(fractions[0],fractions[1],operation);
-
-        expression.replace(matcher.start(),matcher.end(),fractionParser.checkPlus(resultFraction));
-        return countFullExpression(expression);
-    }
-
 }

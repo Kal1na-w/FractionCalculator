@@ -1,4 +1,4 @@
-package ua.od.atomspace.Calculator.service.FractionOperations.calculate.validation;
+package ua.od.atomspace.Calculator.service.FractionOperations.calculate;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,18 +1,17 @@
 package ua.od.atomspace.Calculator.service.FractionOperations.calculate;
 
+class MathOperations {
 
-public class MathOperations {
-
-    public Fraction countUp(Fraction firstFraction, Fraction secondFraction,char operation) {
+    Fraction countUp(Fraction firstFraction, Fraction secondFraction, String operation) {
 
         switch (operation) {
-            case '+':
+            case "+":
                 return sum(firstFraction, secondFraction);
-            case '-':
+            case "-":
                 return subtraction(firstFraction, secondFraction);
-            case ':':
+            case ":":
                 return division(firstFraction,secondFraction);
-            case '*':
+            case "*":
                 return multiplication(firstFraction,secondFraction);
             default:
                 return new Fraction();

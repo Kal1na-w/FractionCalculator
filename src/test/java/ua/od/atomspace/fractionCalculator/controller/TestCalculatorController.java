@@ -25,7 +25,7 @@ public class TestCalculatorController extends TestAbstract {
         Map<String,String> jsonSend = new HashMap<>();
         jsonSend.put("equation","2+5/5");
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri).contentType(MediaType.APPLICATION_JSON_VALUE).content(mapToJson(jsonSend))).andReturn();
-        jsonSend.put("result","3/1");
+        jsonSend.put("result","3");
         assertEquals(200, mvcResult.getResponse().getStatus());
         assertEquals(jsonSend,mapFromJson(mvcResult.getResponse().getContentAsString(),HashMap.class));
     }
@@ -35,6 +35,6 @@ public class TestCalculatorController extends TestAbstract {
         String request = "equation\t2+5/5";
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.post(uri).contentType(MediaType.TEXT_PLAIN_VALUE).content(request)).andReturn();
         assertEquals(200, mvcResult.getResponse().getStatus());
-        assertEquals(request+"\nresult\t3/1",mvcResult.getResponse().getContentAsString());
+        assertEquals(request+"\nresult\t3",mvcResult.getResponse().getContentAsString());
     }
 }
