@@ -24,7 +24,7 @@ public class TestStatusController extends TestAbstract {
 	public void testJson() throws Exception {
 		String uri = "/healthcheck";
 		HashMap<String,String> status = new HashMap<>();
-		status.put("status","ok");
+		status.put("status","UP");
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("Content-Type","application/json");
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).headers(httpHeaders)).andReturn();
@@ -38,7 +38,7 @@ public class TestStatusController extends TestAbstract {
 		httpHeaders.add("Content-Type","text/plain");
 		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri).headers(httpHeaders)).andReturn();
 		assertEquals(200, mvcResult.getResponse().getStatus());
-		assertEquals("status\tok",mvcResult.getResponse().getContentAsString());
+		assertEquals("status\tUP",mvcResult.getResponse().getContentAsString());
 	}
 
 }
